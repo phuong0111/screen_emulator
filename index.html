@@ -1,119 +1,149 @@
-﻿<!DOCTYPE html>
-
-<html>
-  <head>
-  <title>Screen Emulator</title>
-  
-  <meta name="description" content="A screen emulator tool for responsive design." />
-  <meta name="keywords" content="responsive design, screen emulator, testing responsive design" />
-  <meta charset="UTF-8" />
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <link rel="stylesheet" type="text/css" href="css/normalize.css" />
-  <link rel="stylesheet" type="text/css" href="jqueryui/jquery-ui-1.10.3.custom/css/graytheme/jquery-ui-1.10.3.custom.css" />
-	<link rel="stylesheet" type="text/css" href="css/screen.css" />
-  
-	
-	<script type="text/javascript" src="js/jquery-1.10.2.js" /></script>
-  <script type="text/javascript" src="jqueryui/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js"></script>
-	<script type="text/javascript" src="js/screen.js" /></script>
-  
-  <link href="css/fonts/font-awesome/css/font-awesome.css" rel="stylesheet" />
-
-  </head>
-  
-  <body>
-	
-    <header>
-      <h1><a href="index.html">Screen Emulator</a></h1>
-      
-      <p>A tool for web developers and designers to view sites on different screen sizes in one place.</p>
-      
-      <p>There are currently three options for the screen emulator. Choose your tool, then insert the link you wish to test or display.</p>
-      
-      <nav>
-        <ul>
-          <li><a href="#multiscreen">Multiple Screens</a></li>
-          <li><a href="#resizable">Resizable Frame</a></li>
-          <li><a href="#basic">Specify Screen Size</a></li>
-          <li id="specialButton"><a href="about.html">About This Project</a></li>
-        </ul>
-      </nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Emulator Pro</title>
+    <meta name="description" content="A premium screen emulator tool for responsive design." />
+    
+    <!-- Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/screen.css">
+    <link rel="stylesheet" href="css/fonts/font-awesome/css/font-awesome.css">
+</head>
+<body class="dark-mode">
+    <div class="glass-bg"></div>
+    
+    <header class="main-header">
+        <div class="logo">
+            <i class="fa fa-desktop"></i>
+            <h1>Screen Emulator <span>Pro</span></h1>
+        </div>
+        
+        <div class="controls-container">
+            <div class="main-input-stack">
+                <div class="inputs-row">
+                    <div class="input-wrapper dir-box">
+                        <i class="fa fa-folder-open"></i>
+                        <input type="text" id="dirInput" placeholder="Directory to watch (e.g. /Users/name/project)">
+                        <button id="watchBtn">Watch</button>
+                    </div>
+                    <div class="url-group">
+                        <div class="input-wrapper url-box">
+                            <i class="fa fa-globe"></i>
+                            <input type="text" id="urlInput" placeholder="URL to preview (e.g. http://localhost:8081)">
+                            <button id="updateBtn">Update</button>
+                        </div>
+                        <button id="toggleAdvancedBtn" title="Advanced Options">
+                            <i class="fa fa-cog"></i> Advanced Options
+                        </button>
+                    </div>
+                </div>
+    
+                <div id="advancedOptions" class="advanced-options">
+                    <table class="options-table">
+                        <tr>
+                            <th>Method</th>
+                            <td>
+                                <select id="requestMethod">
+                                    <option value="GET">GET</option>
+                                    <option value="POST">POST</option>
+                                    <option value="PUT">PUT</option>
+                                    <option value="PATCH">PATCH</option>
+                                    <option value="DELETE">DELETE</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Headers (JSON)</th>
+                            <td>
+                                <textarea id="requestHeaders" placeholder='{ "Authorization": "Bearer ...", "Custom-Header": "Value" }'></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Body (JSON)</th>
+                            <td>
+                                <textarea id="requestBody" placeholder='{ "key": "value" }'></textarea>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="view-modes">
+                <button id="multiViewBtn" class="active" title="Multiple Screens"><i class="fa fa-th-large"></i></button>
+                <button id="resizableViewBtn" title="Resizable Frame"><i class="fa fa-arrows-alt"></i></button>
+                <button id="customViewBtn" title="Custom Size"><i class="fa fa-pencil-square-o"></i></button>
+            </div>
+        </div>
     </header>
-    
-    <section class="presized" id="multiscreen" position="relative";>
-    
-      <h1>Display a site in phone, tablet, and desktop size</h1>
 
-      <form id="multiInput">
-        <i class="fa fa-external-link"></i>
-        <input id="murl" name="murl" class="website" type="text" placeholder="Enter site url." />
-        <input name="msubmit" type="button" onclick="multiSubmit();" value="Update" />
-      </form>
-      
-      <div class="wrap" id="wDisSm">   
-        <iframe sandbox="allow-same-origin allow-scripts" id="mDisSm" name="mDisSm" class="multiScreen frame" security="restricted"></iframe>
-      </div>
-      
-      <div class="wrap" id="wDisMed">   
-        <iframe sandbox="allow-same-origin allow-scripts" id="mDisMed" name="mDisMed" class="multiScreen frame" security="restricted"></iframe>
-      </div>
-      
-      <div class="wrap" id="wDisLar"> 
-        <iframe sandbox="allow-same-origin allow-scripts" id="mDisLar" name="mDisLar" class="multiScreen frame" security="restricted"></iframe>
-      </div>
-      
-    </section>
-    
-    <section class="draggable" id="resizable">
-    
-      <h1>Display a site in a resizable frame</h1>
-    
-      <p>This feature is not optimized for touch experiences.</p>
-      
-      <form id="resizableInput">
-        <i class="fa fa-external-link"></i>
-        <input id="rurl" name="rurl" class="website" type="text" placeholder="Enter site url." />
-        <input name="rsubmit" type="button" onclick="resizableSubmit();" value="Update" />
-      </form>
-     
-      <div id="rescaleDiv" class="ui-widget-content">
-        <iframe sandbox="allow-same-origin allow-scripts" id="rDisplay" name="rDisplay" class="ui-widget-content"></iframe>
-      </div>
-    
-    </section>
-      
-    <section class="basic" id="basic">
-    
-      <h1>Display a site with a specific screen size</h1>
-      
-      <p>Example: http://duckduckgo.com, 400, 200. (Units (px) are automatically added.)</p>
-      
-      <form id="userInput">
-        <span class="inputs">
-          <i class="fa fa-external-link"></i>
-          <label for="uurl">site:</label>
-          <input id="uurl" name="uurl" class="website uInput" type="text" placeholder="Enter site url." />
-        </span>
-        <span class="inputs">
-          <i class="fa fa-arrows-h"></i>
-          <label for="displayWidth">width:</label>
-          <input id="dWidth" name="displayWidth" class="sizePar uInput" type="text" placeholder="width in pixels" />
-        </span>
-        <span class="inputs">
-          <i class="fa fa-arrows-v"></i>
-          <label for="displayHeight">height:</label>
-          <input id="dHeight" name="displayHeight" class="sizePar uInput" type="text" placeholder="height in pixels" />
-        </span>
-         
-        <input name="usubmit" type="button" onclick="userSubmit();" value="Update" />
-      </form>
-      
-      <iframe sandbox="allow-same-origin allow-scripts"  id="displayPage" name="displayPage"></iframe>
-  
-    </section>
-    
-  </body>
-  
+    <main id="appContent">
+        <!-- Multiple Screens View -->
+        <section id="multiView" class="view-section active">
+            <div class="device-container">
+                <div class="device-wrapper mobile">
+                    <div class="device-header"><span>Phone</span> 375 x 667</div>
+                    <div class="frame-wrap">
+                        <iframe id="frameMobile" sandbox="allow-same-origin allow-scripts"></iframe>
+                    </div>
+                </div>
+                <div class="device-wrapper tablet">
+                    <div class="device-header"><span>Tablet</span> 768 x 1024</div>
+                    <div class="frame-wrap">
+                        <iframe id="frameTablet" sandbox="allow-same-origin allow-scripts"></iframe>
+                    </div>
+                </div>
+                <div class="device-wrapper desktop">
+                    <div class="device-header"><span>Desktop</span> 1280 x 800</div>
+                    <div class="frame-wrap">
+                        <iframe id="frameDesktop" sandbox="allow-same-origin allow-scripts"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resizable View -->
+        <section id="resizableView" class="view-section">
+            <div class="resizable-container">
+                <div class="device-header">Resizable Container</div>
+                <div class="resizable-frame-wrap">
+                    <iframe id="frameResizable" sandbox="allow-same-origin allow-scripts"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Custom Size View -->
+        <section id="customView" class="view-section">
+            <div class="custom-controls">
+                <div class="size-input">
+                    <label>Width</label>
+                    <input type="number" id="customWidth" value="1200">
+                </div>
+                <div class="size-input">
+                    <label>Height</label>
+                    <input type="number" id="customHeight" value="800">
+                </div>
+                <button id="applyCustomBtn">Apply Size</button>
+            </div>
+            <div id="customFrameContainer" class="device-wrapper custom">
+                <div class="device-header">Custom Size</div>
+                <div class="frame-wrap">
+                    <iframe id="frameCustom" sandbox="allow-same-origin allow-scripts"></iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="toast" class="toast">Hot reloading...</div>
+
+    <!-- Scripts -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/screen.js"></script>
+</body>
 </html>
